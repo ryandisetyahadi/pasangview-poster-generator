@@ -1,0 +1,412 @@
+/* PasangView v8 — Referensi baru */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&family=Barlow:wght@400;500;600;700&display=swap');
+
+:root {
+    --red:       #D32F2F;
+    --red-dk:    #B71C1C;
+    --yellow:    #FBC02D;
+    --yellow-dk: #F57F17;
+    --navy:      #0D1B2A;
+    --white:     #FFFFFF;
+    --gray:      #C8D0DA;
+    --text:      #111111;
+    --pad:       40px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Barlow', sans-serif; background: #16202e; min-height: 100vh; }
+
+/* ===================== APP WRAPPER ===================== */
+#app-wrapper {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 28px 16px 64px; gap: 28px;
+}
+
+/* ===================== EDITOR PANEL ===================== */
+#editor-panel {
+    width: 100%; max-width: 960px;
+    background: #fff; border-radius: 12px;
+    padding: 24px 28px; box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+}
+#editor-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 22px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--navy); margin-bottom: 18px;
+    border-bottom: 3px solid var(--yellow); padding-bottom: 10px;
+}
+.editor-row { display: flex; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+.editor-section { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 160px; }
+.editor-section-sm { flex: 0 0 120px; min-width: 100px; }
+.editor-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 12px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--navy);
+}
+#input-bg { font-size: 12px; padding: 5px 0; cursor: pointer; color: var(--text); }
+#slider-opacity {
+    -webkit-appearance: none; width: 100%; height: 5px;
+    border-radius: 3px; background: var(--gray); outline: none; cursor: pointer; margin-top: 4px;
+}
+#slider-opacity::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 18px;
+    border-radius: 50%; background: var(--navy); cursor: pointer;
+}
+#input-overlay-color {
+    width: 100%; height: 38px; border: 2px solid var(--gray); border-radius: 7px;
+    padding: 2px 4px; cursor: pointer; background: none;
+}
+#input-overlay-color:hover { border-color: var(--navy); }
+#input-date-start, #input-date-end, #input-instansi1, #input-instansi2 {
+    font-family: 'Barlow', sans-serif; font-size: 13px;
+    padding: 8px 12px; border: 2px solid var(--gray); border-radius: 7px;
+    color: var(--text); width: 100%; background: #fff;
+}
+#input-date-start:focus, #input-date-end:focus,
+#input-instansi1:focus, #input-instansi2:focus { outline: none; border-color: var(--navy); }
+#btn-apply-dates {
+    width: 100%; padding: 9px 12px; background: var(--navy); color: var(--white);
+    border: none; border-radius: 7px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px;
+    letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer;
+    transition: background 0.2s; margin-top: 2px;
+}
+#btn-apply-dates:hover { background: #1A2E44; }
+#textarea-informasi, #textarea-imbauan {
+    font-family: 'Barlow', sans-serif; font-size: 13px;
+    padding: 8px 12px; border: 2px solid var(--gray); border-radius: 7px;
+    color: var(--text); resize: vertical; line-height: 1.5; width: 100%;
+}
+#textarea-informasi:focus, #textarea-imbauan:focus { outline: none; border-color: var(--navy); }
+.logo-check-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+.logo-check-item {
+    display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+    border: 2px solid var(--gray); border-radius: 8px;
+    cursor: pointer; transition: border-color 0.2s; user-select: none;
+}
+.logo-check-item:hover { border-color: var(--navy); background: #f4f6f8; }
+.logo-check-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--navy); }
+.logo-preview { width: 36px; height: 36px; object-fit: contain; border-radius: 4px; }
+.logo-check-item span {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px;
+    font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #666;
+}
+#btn-download {
+    width: 100%; padding: 13px; background: var(--red); color: var(--white);
+    border: none; border-radius: 8px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 18px;
+    letter-spacing: 2px; text-transform: uppercase; cursor: pointer; margin-top: 4px;
+    transition: background 0.2s;
+}
+#btn-download:hover { background: var(--red-dk); }
+#btn-download:active { transform: translateY(1px); }
+
+/* ===================== POSTER STAGE ===================== */
+#poster-stage { overflow: hidden; border-radius: 10px; box-shadow: 0 8px 56px rgba(0,0,0,0.7); }
+
+/* ===================== POSTER 1080x1350 ===================== */
+#poster {
+    position: relative; width: 1080px; height: 1350px;
+    background: #5c8fa8; background-size: cover; background-position: center;
+    transform-origin: top left; display: flex; flex-direction: column; overflow: hidden;
+}
+#poster-overlay {
+    position: absolute; inset: 0;
+    background: rgba(255,255,255,0.72);
+    z-index: 1; pointer-events: none;
+}
+#poster > *:not(#poster-overlay) { position: relative; z-index: 2; }
+
+/* ===================== POSTER INNER (compressible) ===================== */
+#poster-inner {
+    flex: 1; min-height: 0; width: 1080px;
+    display: flex; flex-direction: column;
+    transform-origin: top center;
+    transition: transform 0.3s ease;
+    overflow: visible;
+}
+
+/* ===================== LOGO ROW — pill background putih ===================== */
+#poster-logo-row {
+    display: flex; justify-content: center; align-items: center;
+    padding: 28px 0 20px;
+}
+
+/* Pill container putih */
+#logo-pill {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px;
+    background: var(--white);
+    border-radius: 999px;
+    padding: 12px 32px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.15);
+}
+
+.poster-logo-item {
+    width: 90px; height: 90px;
+    border-radius: 50%; overflow: hidden;
+    flex-shrink: 0; background: transparent;
+    display: flex; align-items: center; justify-content: center;
+}
+.poster-logo-item img { width: 100%; height: 100%; object-fit: cover; }
+
+.poster-logo-item.logo-transparent {
+    border-radius: 0; overflow: visible; width: 82px; height: 82px;
+}
+.poster-logo-item.logo-transparent img { width: 100%; height: 100%; object-fit: contain; }
+
+/* ===================== INSTANSI ===================== */
+#poster-instansi { text-align: center; padding: 0 40px 14px; }
+#instansi-line1, #instansi-line2 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 26px;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--navy); line-height: 1.2;
+}
+
+/* ===================== HEADER MERAH — full width, rounded ===================== */
+#poster-header {
+    margin: 0 var(--pad);
+    background: var(--red);
+    padding: 18px 40px 20px;
+    display: flex; flex-direction: column; align-items: center;
+    border-radius: 12px 12px 0 0;
+    border: none;
+}
+#header-line1 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 110px;
+    letter-spacing: 10px; color: var(--white); text-align: center; line-height: 0.95;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.18);
+}
+#header-line2 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 84px;
+    letter-spacing: 5px; color: var(--white); text-align: center; line-height: 1.0;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.18);
+}
+
+/* ===================== PERIODE KUNING ===================== */
+#poster-periode-wrap { margin: 0 var(--pad); }
+#poster-periode {
+    background: var(--yellow);
+    padding: 14px 0; text-align: center;
+    border-radius: 0 0 12px 12px;
+}
+#text-periode {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-style: italic;
+    font-size: 38px; color: var(--navy); letter-spacing: 1px;
+}
+
+/* ===================== TABEL ===================== */
+#poster-table-wrapper { padding: 20px var(--pad) 14px; }
+#poster-table {
+    width: 100%; border-collapse: collapse;
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+}
+#poster-table thead tr { background: var(--navy); }
+#poster-table thead th {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 32px;
+    letter-spacing: 1.5px; color: var(--white); padding: 20px 20px; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.15);
+}
+#poster-table thead th:last-child { border-right: none; }
+#poster-table tbody tr { background: var(--white); }
+#poster-table tbody tr:nth-child(even) { background: #ECF0F5; }
+#poster-table tbody tr:last-child td { border-bottom: none; }
+#poster-table tbody td {
+    font-family: 'Barlow', sans-serif; font-size: 30px; font-weight: 600; color: #111;
+    padding: 20px 20px; text-align: center;
+    border-bottom: 1.5px solid var(--gray); border-right: 1.5px solid var(--gray);
+}
+#poster-table tbody td:last-child { border-right: none; }
+#poster-table tbody tr.row-peak td { color: #111; font-weight: 600; }
+
+/* ===================== INFO BOX — border merah tebal ===================== */
+#poster-info-box {
+    margin: 14px var(--pad) 12px;
+    background: var(--white); border-radius: 10px;
+    padding: 20px 24px;
+    border: 4px solid var(--red);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+#text-informasi {
+    font-family: 'Barlow', sans-serif; font-size: 24px; font-weight: 600;
+    line-height: 1.75; color: #111; text-align: justify; white-space: pre-line;
+}
+
+/* ===================== IMBAUAN ===================== */
+#poster-imbauan-box {
+    margin: 12px var(--pad) 14px;
+    background: var(--white); border-radius: 10px; overflow: hidden;
+    border: 4px solid var(--red);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+}
+#imbauan-header {
+    background: var(--red); color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 32px;
+    letter-spacing: 3px; text-transform: uppercase; text-align: center;
+    padding: 14px 20px;
+}
+#imbauan-list { list-style: none; padding: 16px 28px 18px; display: flex; flex-direction: column; gap: 10px; }
+#imbauan-list li {
+    font-family: 'Barlow', sans-serif; font-size: 26px; font-weight: 600; color: #111;
+    display: flex; align-items: flex-start; gap: 14px; line-height: 1.45;
+}
+#imbauan-list li::before {
+    content: '\26A0'; font-size: 22px; margin-top: 3px;
+    flex-shrink: 0; color: var(--yellow-dk);
+}
+
+/* ===================== FOOTER — PERMANEN (navy) ===================== */
+#poster-footer {
+    background: var(--navy);
+    padding: 18px var(--pad);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    border-top: 4px solid var(--yellow);
+    flex-shrink: 0; position: relative; z-index: 2;
+}
+.footer-col { display: flex; align-items: center; gap: 14px; flex: 1; }
+.footer-col-right { justify-content: flex-end; }
+.footer-col-text { display: flex; flex-direction: column; gap: 2px; }
+.footer-text-right { text-align: right; }
+
+.footer-logo-wrap {
+    width: 100px; height: 100px; border-radius: 50%; overflow: hidden;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+}
+.footer-logo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.footer-logo-ph {
+    width: 100px; height: 100px; border-radius: 50%;
+    border: 2px dashed rgba(255,255,255,0.32); background: rgba(255,255,255,0.09);
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.38); line-height: 1.3;
+}
+.ft-bold { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 22px; color: var(--white); line-height: 1.2; }
+.ft-sub { font-family: 'Barlow', sans-serif; font-size: 15px; color: rgba(255,255,255,0.55); margin-top: 3px; }
+.ft-telp { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 22px; color: var(--yellow); }
+.ft-nomor { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 54px; color: var(--yellow); line-height: 1.0; letter-spacing: 3px; }
+.footer-divider { width: 1.5px; height: 80px; background: rgba(255,255,255,0.18); flex-shrink: 0; }
+
+/* ===================== SOSMED — PERMANEN (gelap) ===================== */
+#poster-sosmed {
+    background: #050d16; padding: 10px 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: nowrap; gap: 0 10px; overflow: hidden;
+    flex-shrink: 0; position: relative; z-index: 2;
+}
+.sosmed-item { font-family: 'Barlow', sans-serif; font-size: 14px; color: rgba(255,255,255,0.55); white-space: nowrap; }
+.sosmed-sep { color: rgba(255,255,255,0.2); font-size: 14px; }
+
+/* ===================== COLOR PICKERS ===================== */
+.color-picker-row {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px;
+}
+.color-pick-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 14px; border: 2px solid var(--gray); border-radius: 8px;
+    cursor: pointer; transition: border-color 0.2s; flex: 1; min-width: 180px;
+}
+.color-pick-item:hover { border-color: var(--navy); background: #f8f9fa; }
+.color-pick-item input[type="color"] {
+    width: 36px; height: 36px; border: 2px solid var(--gray);
+    border-radius: 6px; cursor: pointer; padding: 2px; flex-shrink: 0;
+}
+.color-pick-item span {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px;
+    font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    color: #333; line-height: 1.3;
+}
+.color-pick-item span small {
+    display: block; font-size: 10px; font-weight: 500;
+    color: #888; text-transform: none; letter-spacing: 0;
+}
+
+/* ===================== LOGO UPLOAD DINAMIS ===================== */
+.logo-section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+}
+#btn-add-logo {
+    padding: 6px 16px;
+    background: var(--navy); color: var(--white);
+    border: none; border-radius: 6px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 13px; letter-spacing: 1px;
+    cursor: pointer; transition: background 0.2s;
+}
+#btn-add-logo:hover { background: #1A2E44; }
+
+#logo-upload-grid {
+    display: flex; gap: 12px; flex-wrap: wrap;
+}
+
+.logo-upload-slot {
+    position: relative;
+    width: 130px;
+    border: 2px dashed var(--gray);
+    border-radius: 10px;
+    padding: 10px 10px 8px;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    background: #fafafa;
+    transition: border-color 0.2s;
+}
+.logo-upload-slot:hover { border-color: var(--navy); }
+
+.logo-slot-preview {
+    width: 80px; height: 80px;
+    border-radius: 50%; overflow: hidden;
+    background: #eee;
+    display: flex; align-items: center; justify-content: center;
+}
+.logo-slot-preview.transparent-slot {
+    border-radius: 0; background: transparent;
+}
+.logo-slot-preview img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+.logo-slot-preview.transparent-slot img { object-fit: contain; }
+
+.logo-slot-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; color: #bbb; text-align: center;
+}
+
+.logo-slot-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; color: #888;
+    letter-spacing: 1px; text-transform: uppercase;
+}
+
+.logo-slot-input {
+    font-size: 11px; width: 100%; cursor: pointer; color: var(--text);
+}
+
+.logo-slot-remove {
+    position: absolute; top: -8px; right: -8px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #e53935; color: white; border: none;
+    font-size: 13px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: background 0.2s;
+}
+.logo-slot-remove:hover { background: #b71c1c; }
+
+/* ===== LOGO SLOT TOGGLE ===== */
+.logo-slot-toggle {
+    display: flex; align-items: center; gap: 5px;
+    cursor: pointer; margin-top: 2px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    color: #555; user-select: none;
+    padding: 3px 6px; border-radius: 4px;
+    border: 1.5px solid var(--gray);
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%; justify-content: center;
+}
+.logo-slot-toggle:hover { border-color: var(--navy); background: #f0f2f5; }
+.logo-slot-toggle input[type="checkbox"] {
+    width: 12px; height: 12px; accent-color: var(--navy); cursor: pointer;
+}
