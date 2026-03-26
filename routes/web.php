@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/pasangview', function () {
+Route::get('/', function () {
     return response()
         ->view('pasangview.index')
         ->header('X-Robots-Tag', 'noindex')

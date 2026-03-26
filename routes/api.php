@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PasangAirController;
+use App\Http\Controllers\Api\PasangAirController;
 
-Route::get('/pasang-air', [PasangAirController::class, 'index']);
+Route::prefix('pasang-air')->group(function () {
+    Route::get('/',               [PasangAirController::class, 'index']);
+    Route::get('/analisis',       [PasangAirController::class, 'analisis']);
+    Route::get('/tahun-tersedia', [PasangAirController::class, 'tahunTersedia']);
+});
